@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/somen440/saga/proto";
+
+message CardEntity {
+  int64 id = 1;
+  string payment_service_id = 2;
+  google.protobuf.Timestamp expiration_date = 3;
+}
+
+message ConsumerEntity {
+  int64 id = 1;
+  CardEntity card = 2;
+}
+
+service Consumer {
+  rpc VerifyConsumer(VerifyConsumerRequest) returns (VerifyConsumerReply) {}
+}
+
+message VerifyConsumerRequest {
+  int64 consumer_id = 1;
+}
+
+message VerifyConsumerReply {
+  ConsumerEntity consumer = 1;
+}

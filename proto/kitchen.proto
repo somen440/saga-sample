@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/somen440/saga/proto";
+
+enum TicketStatus {
+  TICKET_UNKNOWN = 0;
+  TICKET_CREATED = 1;
+  TICKET_APPROVED = 2;
+  TICKET_CREATE_REJECTED = 3;
+}
+
+message TicketEntity {
+  int64 id = 1;
+  int64 order_id = 2;
+  TicketStatus status = 3;
+}
+
+service Kitchen {
+  rpc CreateTicket(CreateTicketRequest) returns (CreateTicketReply) {}
+  rpc ApproveTicket(ApproveTicketRequest) returns (ApproveTicketReply) {}
+  rpc RejectTicket(RejectTicketRequest) returns (RejectTicketReply) {}
+}
+
+message CreateTicketRequest {
+  int64 order_id = 1;
+}
+
+message CreateTicketReply {
+  TicketEntity ticket = 1;
+}
+
+message ApproveTicketRequest {
+  int64 ticket_id = 1;
+}
+
+message ApproveTicketReply {}
+
+message RejectTicketRequest {
+  int64 ticket_id = 1;
+}
+
+message RejectTicketReply {}

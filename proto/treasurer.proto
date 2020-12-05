@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/somen440/saga/proto";
+
+service Treasurer {
+  rpc AuthorizeCard(AuthorizeCardRequest) returns (AuthorizeCardReply) {}
+}
+
+message AuthorizeCardRequest {
+  string payment_service_id = 1;
+}
+
+message AuthorizeCardReply {
+  bool ok = 1;
+}
